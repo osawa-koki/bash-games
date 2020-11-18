@@ -5,8 +5,6 @@ readonly LF=$'\n'
 readonly CR=$'\r'
 readonly TAB=$'\t'
 readonly NULL=$'\0'
-readonly is_true=true
-readonly is_false=false
 
 game=$1
 
