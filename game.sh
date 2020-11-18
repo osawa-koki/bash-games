@@ -100,10 +100,15 @@ function just10() {
   done
   END=`TZ=JST-9 date +"%S%2N"`
   clear
-  echo ""
   timespan=$(($END - $START))
-
-  echo "scale=5; $timespan / 100" | bc
+  result=`echo "scale=3; $timespan / 100" | bc | xargs printf "%2.3f${LF}"`
+  echo "${FG_BLUE}"
+  echo "${TAB}=== ${FG_GREEN}your result${FG_BLUE} =============="
+  echo "${TAB}=                            ="
+  printf "${TAB}=        ${FG_MAGENTA}${FONT_BOLD}%2.3f${FONT_NORMAL}${FG_BLUE} seconds       =${LF}" $result
+  echo "${TAB}=                            ="
+  echo "${TAB}=============================="
+  echo "${FG_DEFAULT}"
 }
 
 case "$1" in
