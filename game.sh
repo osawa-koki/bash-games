@@ -171,10 +171,12 @@ function blackjack() {
     echo -n "${TAB}"
     echo -n "${FG_MAGENTA}player${FG_BLUE}"
     echo -n " : "
-    echo -n "${player_score}"
+    printf "%2d" ${player_score}
     echo -n " : "
     for card in ${player_cards[@]}; do
-      echo -n "${card} "
+      card_number=${card%%-*}
+      card_suit=${card##*-}
+      printf "${FG_MAGENTA}%2s%s ${FG_DEFAULT}" ${card_number} ${card_suit}
     done
     echo ""
     # dealer
@@ -182,16 +184,18 @@ function blackjack() {
     echo -n "${FG_MAGENTA}dealer${FG_BLUE}"
     echo -n " : "
     if [ "$completed" = true ]; then
-      echo -n "${dealer_score}"
+      printf "%2d" ${dealer_score}
     else
       echo -n "**"
     fi
     echo -n " : "
     for card in ${dealer_cards[@]}; do
       if [ "$completed" = true ]; then
-        echo -n "${card} "
+        card_number=${card%%-*}
+        card_suit=${card##*-}
+        printf "${FG_MAGENTA}%2s%s ${FG_DEFAULT}" ${card_number} ${card_suit}
       else
-        echo -n "?? "
+        echo -n "${FG_MAGENTA} ?? ${FG_DEFAULT}"
       fi
     done
     echo ""
