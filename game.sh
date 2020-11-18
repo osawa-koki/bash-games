@@ -152,17 +152,19 @@ function blackjack() {
   # プレイヤーの初期化
   player_score=0
   player_cards=()
+  player_continue=true
   # ディーラーの初期化
   dealer_score=0
   dealer_cards=()
+  dealer_continue=true
   # 表示関数
   function show() {
     clear
     echo "${FG_BLUE}"
     echo "${TAB}=== ${FG_GREEN}blackjack${FG_BLUE} =============="
     echo "${TAB}=                            ="
-    echo "${TAB}= ${FG_MAGENTA}dealer${FG_BLUE} : ${FG_YELLOW}${dealer_cards[@]}${FG_BLUE} ="
-    echo "${TAB}= ${FG_MAGENTA}player${FG_BLUE} : ${FG_YELLOW}${player_cards[@]}${FG_BLUE} ="
+    echo "${TAB}= ${FG_MAGENTA}dealer${FG_BLUE} : $player_score : ${FG_YELLOW}${dealer_cards[@]}${FG_BLUE} ="
+    echo "${TAB}= ${FG_MAGENTA}player${FG_BLUE} : $dealer_score : ${FG_YELLOW}${player_cards[@]}${FG_BLUE} ="
     echo "${TAB}=                            ="
     echo "${TAB}=============================="
     echo "${FG_DEFAULT}"
@@ -179,6 +181,37 @@ function blackjack() {
     deck=(${deck[@]})
   done
   show false
+  while $player_continue || $dealer_continue; do
+    if $player_continue; then
+      if [ $player_score -lt 21 ]; then
+        echo "${TAB}hit or stand? (h/s)"
+        echo -n "${TAB}${TAB}${TAB} -> "
+        read player_input
+        if [ "$player_input" = "h" ]; then
+          player_cards+=(${deck[0]})
+          player_score=$(($player_score + ${number_objects[${deck[0]%%-*}]}))
+          unset deck[0]
+          deck=(${deck[@]})
+          show false
+        else
+          player_continue=false
+        fi
+      else
+        player_continue=false
+      fi
+    fi
+    if $dealer_continue; then
+      if [ $dealer_score -lt 17 ]; then
+        dealer_cards+=(${deck[0]})
+        dealer_score=$(($dealer_score + ${number_objects[${deck[0]%%-*}]}))
+        unset deck[0]
+        deck=(${deck[@]})
+        show false
+      else
+        dealer_continue=false
+      fi
+    fi
+  done
 }
 
 case "$1" in
