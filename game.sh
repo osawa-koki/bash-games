@@ -5,6 +5,25 @@ readonly LF=$'\n'
 readonly CR=$'\r'
 readonly TAB=$'\t'
 readonly NULL=$'\0'
+readonly FG_BLACK=$'\e[30m'
+readonly FG_RED=$'\e[31m'
+readonly FG_GREEN=$'\e[32m'
+readonly FG_YELLOW=$'\e[33m'
+readonly FG_BLUE=$'\e[34m'
+readonly FG_MAGENTA=$'\e[35m'
+readonly FG_CYAN=$'\e[36m'
+readonly FG_WHITE=$'\e[37m'
+readonly FG_DEFAULT=$'\e[39m'
+readonly BG_BLACK=$'\e[40m'
+readonly BG_RED=$'\e[41m'
+readonly BG_GREEN=$'\e[42m'
+readonly BG_YELLOW=$'\e[43m'
+readonly BG_BLUE=$'\e[44m'
+readonly BG_MAGENTA=$'\e[45m'
+readonly BG_CYAN=$'\e[46m'
+readonly BG_WHITE=$'\e[47m'
+readonly BG_DEFAULT=$'\e[49m'
+readonly RESET=$'\e[0m'
 
 game=$1
 
@@ -17,7 +36,7 @@ function add-nums() {
   for i in $(seq 1 $question_count); do
     clear
     if [ "$prev_is_correct" = "$NULL" ]; then
-      echo "Let's start!"
+      echo "${FG_MAGENTA}Let's start!${FG_DEFAULT}"
     elif "${prev_is_correct}"; then
       echo "Your answer is OK"
     else
