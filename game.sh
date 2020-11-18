@@ -80,12 +80,38 @@ function add-nums() {
   echo "${FG_DEFAULT}"
 }
 
+function just10() {
+  clear
+  echo ""
+  echo "${FG_RED}${FONT_BOLD} $ ${FONT_DEFAULT}${FG_DEFAULT} ${FG_MAGENTA}${FONT_BOLD}just10${FONT_NORMAL}${FG_DEFAULT} ${FG_GREEN}<measure just 10 seconds!>${FG_DEFAULT}"
+  echo ""
+  echo "${TAB}Press Enter to start."
+  echo ""
+  echo -n "${TAB}${TAB}${TAB} -> "
+  read
+  clear
+  START=`TZ=JST-9 date +"%S%2N"`
+  while true; do
+    echo -n "."
+    read -t 0.01
+    if [ $? = 0 ]; then
+      break
+    fi
+  done
+  END=`TZ=JST-9 date +"%S%2N"`
+  clear
+  echo ""
+  timespan=$(($END - $START))
+
+  echo "scale=5; $timespan / 100" | bc
+}
+
 case "$1" in
   "add-nums")
     add-nums
     ;;
-  "n")
-    echo "NO"
+  "just10")
+    just10
     ;;
   *)
     echo "undefined";;
