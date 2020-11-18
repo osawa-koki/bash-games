@@ -134,10 +134,51 @@ function blackjack() {
   for suit in ${suits[@]}; do
     for number in ${!number_objects[@]}; do
       mark=${number_objects[${number}]}
-      deck+=("$number $mark $suit")
+      deck+=("$number-$mark-$suit")
     done
   done
-
+  # デッキをシャッフル
+  for i in $(seq 1 100); do
+    index1=$((RANDOM % ${#deck[@]}))
+    index2=$((RANDOM % ${#deck[@]}))
+    tmp=${deck[$index1]}
+    deck[$index1]=${deck[$index2]}
+    deck[$index2]=$tmp
+  done
+  for card in ${deck[@]}; do
+    echo $card
+  done
+  clear
+  # プレイヤーの初期化
+  player_score=0
+  player_cards=()
+  # ディーラーの初期化
+  dealer_score=0
+  dealer_cards=()
+  # 表示関数
+  function show() {
+    clear
+    echo "${FG_BLUE}"
+    echo "${TAB}=== ${FG_GREEN}blackjack${FG_BLUE} =============="
+    echo "${TAB}=                            ="
+    echo "${TAB}= ${FG_MAGENTA}dealer${FG_BLUE} : ${FG_YELLOW}${dealer_cards[@]}${FG_BLUE} ="
+    echo "${TAB}= ${FG_MAGENTA}player${FG_BLUE} : ${FG_YELLOW}${player_cards[@]}${FG_BLUE} ="
+    echo "${TAB}=                            ="
+    echo "${TAB}=============================="
+    echo "${FG_DEFAULT}"
+  }
+  # 最初の2枚を配る
+  for i in $(seq 1 2); do
+    player_cards+=(${deck[0]})
+    player_score=$(($player_score + ${number_objects[${deck[0]%%-*}]}))
+    unset deck[0]
+    deck=(${deck[@]})
+    dealer_cards+=(${deck[0]})
+    dealer_score=$(($dealer_score + ${number_objects[${deck[0]%%-*}]}))
+    unset deck[0]
+    deck=(${deck[@]})
+  done
+  show false
 }
 
 case "$1" in
