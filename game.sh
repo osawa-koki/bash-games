@@ -120,6 +120,7 @@ function just10() {
 }
 
 function blackjack() {
+  clear
   echo ""
   echo "${FG_RED}${FONT_BOLD} $ ${FONT_DEFAULT}${FG_DEFAULT} ${FG_MAGENTA}${FONT_BOLD}blackjack${FONT_NORMAL}${FG_DEFAULT} ${FG_GREEN}<play blackjack!>${FG_DEFAULT}"
   echo ""
@@ -160,14 +161,43 @@ function blackjack() {
   dealer_continue=true
   # 表示関数
   function show() {
+    completed=$1
     clear
+    # header
     echo "${FG_BLUE}"
-    echo "${TAB}=== ${FG_GREEN}blackjack${FG_BLUE} =============="
+    echo "${TAB}=== ${FG_GREEN}blackjack${FG_BLUE} ================"
     echo "${TAB}=                            ="
-    echo "${TAB} ${FG_MAGENTA}player${FG_BLUE} : $dealer_score : ${FG_YELLOW}${player_cards[@]}${FG_BLUE}"
-    echo "${TAB} ${FG_MAGENTA}dealer${FG_BLUE} : $player_score : ${FG_YELLOW}${dealer_cards[@]}${FG_BLUE}"
+    # player
+    echo -n "${TAB}"
+    echo -n "${FG_MAGENTA}player${FG_BLUE}"
+    echo -n " : "
+    echo -n "${player_score}"
+    echo -n " : "
+    for card in ${player_cards[@]}; do
+      echo -n "${card} "
+    done
+    echo ""
+    # dealer
+    echo -n "${TAB}"
+    echo -n "${FG_MAGENTA}dealer${FG_BLUE}"
+    echo -n " : "
+    if [ "$completed" = true ]; then
+      echo -n "${dealer_score}"
+    else
+      echo -n "**"
+    fi
+    echo -n " : "
+    for card in ${dealer_cards[@]}; do
+      if [ "$completed" = true ]; then
+        echo -n "${card} "
+      else
+        echo -n "?? "
+      fi
+    done
+    echo ""
+    # footer
     echo "${TAB}=                            ="
-    echo "${TAB}=============================="
+    echo "${TAB}================================"
     echo "${FG_DEFAULT}"
   }
   # 最初の2枚を配る
