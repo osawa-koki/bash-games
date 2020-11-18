@@ -145,10 +145,10 @@ function blackjack() {
     deck[$index1]=${deck[$index2]}
     deck[$index2]=$tmp
   done
-  for card in ${deck[@]}; do
-    echo $card
-  done
-  exit
+  # for card in ${deck[@]}; do
+  #   echo $card
+  # done
+  # exit
   clear
   # プレイヤーの初期化
   player_score=0
