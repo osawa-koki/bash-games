@@ -91,7 +91,15 @@ function just10() {
   read
   clear
   START=`TZ=JST-9 date +"%S%2N"`
+  counter=0
+  colors=("${FG_RED}" "${FG_GREEN}" "${FG_YELLOW}" "${FG_BLUE}" "${FG_MAGENTA}" "${FG_CYAN}")
   while true; do
+    echo -n "${colors[$((RANDOM % 6))]}"
+    counter=$((counter + 1))
+    if [ $counter -eq 50 ]; then
+      counter=0
+      echo -n "${CR}"
+    fi
     echo -n "."
     read -t 0.01
     if [ $? = 0 ]; then
