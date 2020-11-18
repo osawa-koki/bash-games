@@ -48,9 +48,9 @@ function add-nums() {
     if [ "$prev_is_correct" = "$NULL" ]; then
       echo "${FG_MAGENTA}Let's start!${FG_DEFAULT}"
     elif "${prev_is_correct}"; then
-      echo "Your answer is OK"
+      echo "Your answer is ${FG_BLUE}OK${FG_DEFAULT}"
     else
-      echo "Your answer is NG"
+      echo "Your answer is ${FG_RED}NG${FG_DEFAULT}"
     fi
     # TODO: 0-32767の間で生成されるため、L.C.Mを用いていい感じに修正する。
     num1=$((RANDOM % 10))
