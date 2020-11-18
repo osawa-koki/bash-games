@@ -6,4 +6,6 @@ bashで動作する簡単なゲーム。
 
 ```shell
 ./game.sh add-nums
+./game.sh just10
+./game.sh blackjack
 ```
