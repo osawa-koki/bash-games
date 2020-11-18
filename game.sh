@@ -55,7 +55,6 @@ function add-nums() {
     fi
     echo ""
     echo "${FG_MAGENTA}${FONT_BOLD}Question${FONT_NORMAL} ${i} / ${question_count}${FG_DEFAULT}"
-    # TODO: 0-32767の間で生成されるため、L.C.Mを用いていい感じに修正する。
     num1=$((RANDOM % 10))
     num2=$((RANDOM % 10))
     num3=$((RANDOM % 10))
