@@ -181,6 +181,7 @@ function blackjack() {
     deck=(${deck[@]})
   done
   show false
+  # プレイ
   while $player_continue || $dealer_continue; do
     if $player_continue; then
       if [ $player_score -lt 21 ]; then
@@ -212,6 +213,8 @@ function blackjack() {
       fi
     fi
   done
+  # 結果
+  show true
 }
 
 case "$1" in
