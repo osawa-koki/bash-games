@@ -4,6 +4,7 @@
 readonly LF=$'\n'
 readonly CR=$'\r'
 readonly TAB=$'\t'
+readonly BS=$'\b'
 readonly NULL=$'\0'
 readonly FONT_NORMAL=$'\e[0m'
 readonly FONT_BOLD=$'\e[1m'
@@ -250,6 +251,26 @@ function blackjack() {
   done
   # 結果
   show true
+  if [ $player_score -gt 21 ]; then
+    player_score=0
+  fi
+  if [ $dealer_score -gt 21 ]; then
+    dealer_score=0
+  fi
+  colors=("${FG_RED}" "${FG_GREEN}" "${FG_YELLOW}" "${FG_BLUE}" "${FG_MAGENTA}" "${FG_CYAN}" "${FG_RED}" "${FG_GREEN}" "${FG_YELLOW}" "${FG_BLUE}" "${FG_MAGENTA}" "${FG_CYAN}")
+  color=${colors[$((RANDOM % ${#colors[@]}))]}
+  for color in ${colors[@]}; do
+    echo -n "${color}${BS}=>"
+    sleep 0.1
+  done
+  if [ $player_score -gt $dealer_score ]; then
+    echo "${TAB}${FG_GREEN}${FONT_BOLD}You win!${FONT_NORMAL}${FG_DEFAULT}"
+  elif [ $player_score -lt $dealer_score ]; then
+    echo "${TAB}${FG_RED}${FONT_LIGHT}You lose...${FONT_NORMAL}${FG_DEFAULT}"
+  else
+    echo "${TAB}${FG_YELLOW}Draw.${FG_DEFAULT}"
+  fi
+  echo ""
 }
 
 case "$1" in
