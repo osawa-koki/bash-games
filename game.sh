@@ -69,6 +69,15 @@ function add-nums() {
       prev_is_correct=false
     fi
   done
+  clear
+  your_score=$(($correct * 100 / $question_count))
+  echo "${FG_GREEN}"
+  echo "${TAB}=============================="
+  echo "${TAB}=                            ="
+  printf "${TAB}=     ${FG_MAGENTA}Your score is %3d%%${FG_GREEN}     =${LF}" "$your_score"
+  echo "${TAB}=                            ="
+  echo "${TAB}=============================="
+  echo "${FG_DEFAULT}"
 }
 
 case "$1" in
