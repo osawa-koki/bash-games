@@ -284,5 +284,9 @@ case "$1" in
     blackjack
     ;;
   *)
-    echo "undefined";;
+    echo ""
+    echo "${TAB}Invalid parameter '${1}'."
+    echo "${TAB}  Usage: ${0} [add-nums|just10|blackjack]"
+    echo ""
+    ;;
 esac
