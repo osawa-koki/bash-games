@@ -132,9 +132,9 @@ function blackjack() {
   declare -A number_objects=(["A"]=1 ["2"]=2 ["3"]=3 ["4"]=4 ["5"]=5 ["6"]=6 ["7"]=7 ["8"]=8 ["9"]=9 ["10"]=10 ["J"]=10 ["Q"]=10 ["K"]=10)
   declare -a deck=()
   for suit in ${suits[@]}; do
-    for number in ${!number_objects[@]}; do
-      mark=${number_objects[${number}]}
-      deck+=("$number-$mark-$suit")
+    for mark in ${!number_objects[@]}; do
+      number=${number_objects[${mark}]}
+      deck+=("$mark-$suit")
     done
   done
   # デッキをシャッフル
@@ -148,6 +148,7 @@ function blackjack() {
   for card in ${deck[@]}; do
     echo $card
   done
+  exit
   clear
   # プレイヤーの初期化
   player_score=0
@@ -163,8 +164,8 @@ function blackjack() {
     echo "${FG_BLUE}"
     echo "${TAB}=== ${FG_GREEN}blackjack${FG_BLUE} =============="
     echo "${TAB}=                            ="
-    echo "${TAB}= ${FG_MAGENTA}dealer${FG_BLUE} : $player_score : ${FG_YELLOW}${dealer_cards[@]}${FG_BLUE} ="
-    echo "${TAB}= ${FG_MAGENTA}player${FG_BLUE} : $dealer_score : ${FG_YELLOW}${player_cards[@]}${FG_BLUE} ="
+    echo "${TAB} ${FG_MAGENTA}player${FG_BLUE} : $dealer_score : ${FG_YELLOW}${player_cards[@]}${FG_BLUE}"
+    echo "${TAB} ${FG_MAGENTA}dealer${FG_BLUE} : $player_score : ${FG_YELLOW}${dealer_cards[@]}${FG_BLUE}"
     echo "${TAB}=                            ="
     echo "${TAB}=============================="
     echo "${FG_DEFAULT}"
