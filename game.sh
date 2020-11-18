@@ -53,6 +53,12 @@ function add-nums() {
     else
       echo "Your answer is ${FG_RED}${FONT_BOLD}NG...${FONT_NORMAL}${FG_DEFAULT}"
     fi
+    echo ""
+    if [ "$prev_is_correct" = "$NULL" ]; then
+      echo ""
+    else
+      echo "${FG_MAGENTA}${FONT_BOLD}Question${FONT_NORMAL} ${i} / ${question_count}${FG_DEFAULT}"
+    fi
     # TODO: 0-32767の間で生成されるため、L.C.Mを用いていい感じに修正する。
     num1=$((RANDOM % 10))
     num2=$((RANDOM % 10))
