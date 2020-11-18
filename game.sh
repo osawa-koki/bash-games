@@ -119,12 +119,36 @@ function just10() {
   echo "${FG_DEFAULT}"
 }
 
+function blackjack() {
+  echo ""
+  echo "${FG_RED}${FONT_BOLD} $ ${FONT_DEFAULT}${FG_DEFAULT} ${FG_MAGENTA}${FONT_BOLD}blackjack${FONT_NORMAL}${FG_DEFAULT} ${FG_GREEN}<play blackjack!>${FG_DEFAULT}"
+  echo ""
+  echo "${TAB}Press Enter to start."
+  echo ""
+  echo -n "${TAB}${TAB}${TAB} -> "
+  read
+  # トランプ情報を初期化
+  declare -a suits=("♠" "♥" "♦" "♣")
+  declare -A number_objects=(["A"]=1 ["2"]=2 ["3"]=3 ["4"]=4 ["5"]=5 ["6"]=6 ["7"]=7 ["8"]=8 ["9"]=9 ["10"]=10 ["J"]=10 ["Q"]=10 ["K"]=10)
+  declare -a deck=()
+  for suit in ${suits[@]}; do
+    for number in ${!number_objects[@]}; do
+      mark=${number_objects[${number}]}
+      deck+=("$number $mark $suit")
+    done
+  done
+
+}
+
 case "$1" in
   "add-nums")
     add-nums
     ;;
   "just10")
     just10
+    ;;
+  "blackjack")
+    blackjack
     ;;
   *)
     echo "undefined";;
