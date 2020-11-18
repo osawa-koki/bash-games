@@ -39,22 +39,20 @@ game=$1
 
 function add-nums() {
   prev_is_correct=$NULL
+  total_timespan=0
   total=0
   correct=0
   question_count=10
   for i in $(seq 1 $question_count); do
     clear
     if [ "$prev_is_correct" = "$NULL" ]; then
-      echo "${FG_BLUE}Let's start!${FG_DEFAULT}"
+      echo "${FG_MAGENTA}Let's start!${FG_DEFAULT}"
+    elif "${prev_is_correct}"; then
+      echo "Your answer is OK"
     else
-      if [ "$prev_is_correct" = "true" ]; then
-        echo "${FG_GREEN}Correct!${FG_DEFAULT}"
-      else
-        echo "${FG_RED}Incorrect!${FG_DEFAULT}"
-      fi
+      echo "Your answer is NG"
     fi
-    echo ""
-    echo "${FG_MAGENTA}Q: $i / $question_count ${FG_DEFAULT}"
+    # TODO: 0-32767の間で生成されるため、L.C.Mを用いていい感じに修正する。
     num1=$((RANDOM % 10))
     num2=$((RANDOM % 10))
     num3=$((RANDOM % 10))
@@ -67,20 +65,10 @@ function add-nums() {
     read input
     if [ "$input" = "$answer" ]; then
       prev_is_correct=true
-      correct=$(($correct + 1))
     else
       prev_is_correct=false
     fi
   done
-  clear
-  your_score=$(($correct * 100 / $question_count))
-  echo "${FG_GREEN}"
-  echo "${TAB}=============================="
-  echo "${TAB}=                            ="
-  printf "${TAB}=     ${FG_MAGENTA}Your score is %3d%%${FG_GREEN}     =${LF}" "$your_score"
-  echo "${TAB}=                            ="
-  echo "${TAB}=============================="
-  echo "${FG_DEFAULT}"
 }
 
 case "$1" in
