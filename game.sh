@@ -66,6 +66,7 @@ function add-nums() {
     read input
     if [ "$input" = "$answer" ]; then
       prev_is_correct=true
+      correct=$(($correct + 1))
     else
       prev_is_correct=false
     fi
