@@ -3,6 +3,8 @@ ARG VARIANT=debian-11
 FROM mcr.microsoft.com/devcontainers/base:${VARIANT}
 WORKDIR /src
 
+RUN sudo apt update && sudo apt install bc
+
 # [Optional] Uncomment this section to install additional OS packages you may want.
 #
 # RUN apk add --no-cache <your-package-list-here>
