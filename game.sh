@@ -5,6 +5,8 @@ readonly LF=$'\n'
 readonly CR=$'\r'
 readonly TAB=$'\t'
 readonly NULL=$'\0'
+readonly is_true=true
+readonly is_false=false
 
 game=$1
 
@@ -16,6 +18,13 @@ function add-nums() {
   question_count=10
   for i in $(seq 1 $question_count); do
     clear
+    if [ "$prev_is_correct" = "$NULL" ]; then
+      echo "Let's start!"
+    elif "${prev_is_correct}"; then
+      echo "Your answer is OK"
+    else
+      echo "Your answer is NG"
+    fi
     num1=$((RANDOM % 10))
     num2=$((RANDOM % 10))
     num3=$((RANDOM % 10))
@@ -26,7 +35,7 @@ function add-nums() {
     echo ""
     echo -n "${TAB}${TAB}${TAB} -> "
     read input
-    if [[ $input -eq $answer ]]; then
+    if [ "$input" = "$answer" ]; then
       prev_is_correct=true
     else
       prev_is_correct=false
