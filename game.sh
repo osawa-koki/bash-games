@@ -94,7 +94,7 @@ function just10() {
   counter=0
   colors=("${FG_RED}" "${FG_GREEN}" "${FG_YELLOW}" "${FG_BLUE}" "${FG_MAGENTA}" "${FG_CYAN}")
   while true; do
-    echo -n "${colors[$((RANDOM % 6))]}"
+    echo -n "${colors[$((RANDOM % ${#colors[@]}))]}"
     counter=$((counter + 1))
     if [ $counter -eq 50 ]; then
       counter=0
