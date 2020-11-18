@@ -199,10 +199,10 @@ function blackjack() {
         echo -n "${FG_MAGENTA} ?? ${FG_DEFAULT}"
       fi
     done
-    echo ""
+    echo "${FG_BLUE}"
     # footer
     echo "${TAB}=                            ="
-    echo "${TAB}================================"
+    echo "${TAB}=============================="
     echo "${FG_DEFAULT}"
   }
   # 最初の2枚を配る
